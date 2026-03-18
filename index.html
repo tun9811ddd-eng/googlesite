@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play Slots Now</title>
+  <style>
+    :root {
+      --bg: #06040f;
+      --bg-soft: #0f0a1f;
+      --card: #121027;
+      --text: #f6f6ff;
+      --muted: #b9b7d2;
+      --accent: #a75cff;
+      --accent-2: #2df2ff;
+      --accent-3: #ff4ecd;
+      --ok: #35f3a8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at 20% 0%, #1a1240 0%, var(--bg) 44%), var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1140px, 92vw);
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 30px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(800px 280px at 15% 15%, rgba(167, 92, 255, 0.24), transparent 65%),
+        radial-gradient(700px 240px at 90% 35%, rgba(45, 242, 255, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 20px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .badge {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f3efff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5.8vw, 72px);
+      line-height: 1.03;
+      text-wrap: balance;
+      max-width: 980px;
+    }
+
+    .h-gradient {
+      background: linear-gradient(95deg, #ffffff 0%, #cebcff 46%, #67f8ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .sub {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 2.2vw, 22px);
+      line-height: 1.45;
+    }
+
+    .cta-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 22px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      min-width: 182px;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-main {
+      color: #041015;
+      background: linear-gradient(90deg, var(--ok), var(--accent-2));
+      box-shadow: 0 12px 40px rgba(53, 243, 168, 0.34);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 16px 44px rgba(53, 243, 168, 0.5);
+    }
+
+    .btn-alt {
+      color: #fff;
+      background: linear-gradient(90deg, #6e3bff, #b64dff);
+      box-shadow: 0 12px 36px rgba(133, 72, 255, 0.35);
+    }
+
+    .btn-alt:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(133, 72, 255, 0.5);
+    }
+
+    .trust {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #d8d5ef;
+    }
+
+    .trust span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .section {
+      padding: 18px 0 34px;
+    }
+
+    .title {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 3.6vw, 40px);
+      text-align: center;
+    }
+
+    .title + p {
+      margin: 0 auto 18px;
+      max-width: 760px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .marquee-shell {
+      display: grid;
+      gap: 12px;
+      margin: 20px auto 0;
+    }
+
+    .marquee {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      padding: 10px 0;
+    }
+
+    .marquee::before,
+    .marquee::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(6, 4, 15, 1), rgba(6, 4, 15, 0));
+    }
+
+    .marquee::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(6, 4, 15, 1), rgba(6, 4, 15, 0));
+    }
+
+    .track {
+      display: flex;
+      width: max-content;
+      gap: 10px;
+      will-change: transform;
+      animation: move-left 52s linear infinite;
+    }
+
+    .track.reverse {
+      animation: move-right 46s linear infinite;
+    }
+
+    .pill {
+      flex: 0 0 210px;
+      height: 122px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #1a1633;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.36);
+    }
+
+    .pill img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes move-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes move-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (min-width: 740px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 14px;
+      padding: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(167, 92, 255, 0.65);
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #211b45;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-mini {
+      margin-top: 9px;
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      box-shadow: 0 9px 20px rgba(167, 92, 255, 0.35);
+    }
+
+    .play-mini:hover {
+      opacity: 0.95;
+    }
+
+    .big-cta {
+      margin: 28px 0 50px;
+      padding: 28px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(45, 242, 255, 0.18), transparent 46%),
+        radial-gradient(circle at 80% 100%, rgba(167, 92, 255, 0.22), transparent 45%),
+        rgba(17, 14, 37, 0.9);
+      text-align: center;
+    }
+
+    .big-cta h3 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4.6vw, 44px);
+    }
+
+    .big-cta p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: clamp(15px, 2vw, 18px);
+    }
+
+    .sticky-bar {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 99;
+      display: none;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(10, 7, 24, 0.85);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .sticky-bar .btn {
+      min-width: auto;
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 700px) {
+      .sticky-bar {
+        display: flex;
+      }
+      body {
+        padding-bottom: 84px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Replace this URL once, all buttons use it -->
+  <!-- Example: https://your-tracking-domain.com/click?geo=all -->
+  <script>
+    const TRACKING_URL = "https://worldlinks1.com/5RrBC8";
+  </script>
+
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <div class="badge">Fast Access • Top Slot Picks • Instant Play</div>
+      <h1>
+        Spin into <span class="h-gradient">Big Slot Action</span><br />
+        and Start Playing Now
+      </h1>
+      <p class="sub">
+        Discover trending slot games, pick your favorite style, and jump straight to play.
+        One click, full casino vibe.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-main js-track" href="#" target="_blank" rel="nofollow noopener">Play Slots Now</a>
+        <a class="btn btn-alt js-track" href="#" target="_blank" rel="nofollow noopener">Open Casino Lobby</a>
+      </div>
+      <div class="trust">
+        <span>Mobile Friendly</span>
+        <span>Fresh Slot Selection</span>
+        <span>Quick Redirect</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="title">Hot Slot Flow</h2>
+      <p>Scrolling slot covers create a live casino feel and keep attention on the play action.</p>
+
+      <div class="marquee-shell">
+        <div class="marquee">
+          <div class="track">
+            <div class="pill"><img src="slots pics/booming-fruits-81x.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/lucky-streaks.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/the-hive.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/vegas-cash-spins.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/starburst.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wild-saloon.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/fortune-frog.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/rainbow-gold.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/joker-reelz.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/frost-queen-jackpots.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/arabian-dream.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/extra-super-hot-bbq.jpg" alt="Slot cover" loading="lazy" /></div>
+
+            <div class="pill"><img src="slots pics/booming-fruits-81x.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/lucky-streaks.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/the-hive.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/vegas-cash-spins.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/starburst.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wild-saloon.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/fortune-frog.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/rainbow-gold.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/joker-reelz.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/frost-queen-jackpots.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/arabian-dream.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/extra-super-hot-bbq.jpg" alt="Slot cover" loading="lazy" /></div>
+          </div>
+        </div>
+
+        <div class="marquee">
+          <div class="track reverse">
+            <div class="pill"><img src="slots pics/booming-fruits-10.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/red-dragon.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/rainbow-queen.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/typhoon-cash.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/aztec-magic.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wolf-hunt.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/the-myth.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/temple-of-nudges.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/mayan-magic-wildfire.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wolf-gold.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/mystical-lamp.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/sugar-frenzy.jpg" alt="Slot cover" loading="lazy" /></div>
+
+            <div class="pill"><img src="slots pics/booming-fruits-10.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/red-dragon.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/rainbow-queen.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/typhoon-cash.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/aztec-magic.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wolf-hunt.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/the-myth.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/temple-of-nudges.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/mayan-magic-wildfire.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/wolf-gold.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/mystical-lamp.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/sugar-frenzy.jpg" alt="Slot cover" loading="lazy" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="title">Featured Slot Picks</h2>
+      <p>Tap any card to jump to your casino page and start spinning immediately.</p>
+
+      <div class="grid">
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/da-vinci-diamonds-dual-play.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/queen-of-spades.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/zeus-the-thunderer.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/pinup-dolls.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/coins-of-egypt.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/mega-fortune.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/jumanji.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/dazzle-me.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/mythic-maiden.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/blood-suckers.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/panda-paradise.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/sherlock.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/sultan.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/ultra-wheel.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/scuba-fishing.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/diamond-blitz.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/spin-town.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/flaming-fruits.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/7s-and-diamonds.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/montezuma.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/lucky-10-bells.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/house-of-fun.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/chilli-heat.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/mighty-kong.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/fairy-gate.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/illuminous.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/egyptian-sun.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/magical-lamp.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+        <a class="card js-track" href="#" target="_blank" rel="nofollow noopener">
+          <div class="thumb"><img src="slots pics/thunder-screech.jpg" alt="Slot" loading="lazy" /></div>
+          <span class="play-mini">Play This Slot</span>
+        </a>
+      </div>
+
+      <div class="big-cta">
+        <h3>Ready to Spin?</h3>
+        <p>Open the casino page and start playing your favorite slots right now.</p>
+        <div class="cta-row">
+          <a class="btn btn-main js-track" href="#" target="_blank" rel="nofollow noopener">Play Slots Now</a>
+          <a class="btn btn-alt js-track" href="#" target="_blank" rel="nofollow noopener">Enter & Spin</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-bar">
+    <a class="btn btn-main js-track" href="#" target="_blank" rel="nofollow noopener">Play Now</a>
+  </div>
+
+  <script>
+    document.querySelectorAll(".js-track").forEach((el) => {
+      el.href = TRACKING_URL;
+    });
+  </script>
+</body>
+</html>
