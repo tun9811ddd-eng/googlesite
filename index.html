@@ -442,7 +442,7 @@
             <div class="pill"><img src="slots pics/fortune-frog.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/rainbow-gold.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/joker-reelz.jpg" alt="Slot cover" loading="lazy" /></div>
-            <div class="pill"><img src="slots pics/frost-queen-jackpots.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/lucky-streaks.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/arabian-dream.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/extra-super-hot-bbq.jpg" alt="Slot cover" loading="lazy" /></div>
 
@@ -455,7 +455,7 @@
             <div class="pill"><img src="slots pics/fortune-frog.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/rainbow-gold.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/joker-reelz.jpg" alt="Slot cover" loading="lazy" /></div>
-            <div class="pill"><img src="slots pics/frost-queen-jackpots.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/lucky-streaks.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/arabian-dream.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/extra-super-hot-bbq.jpg" alt="Slot cover" loading="lazy" /></div>
           </div>
@@ -471,7 +471,7 @@
             <div class="pill"><img src="slots pics/wolf-hunt.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/the-myth.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/temple-of-nudges.jpg" alt="Slot cover" loading="lazy" /></div>
-            <div class="pill"><img src="slots pics/mayan-magic-wildfire.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/aztec-magic.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/wolf-gold.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/mystical-lamp.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/sugar-frenzy.jpg" alt="Slot cover" loading="lazy" /></div>
@@ -484,7 +484,7 @@
             <div class="pill"><img src="slots pics/wolf-hunt.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/the-myth.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/temple-of-nudges.jpg" alt="Slot cover" loading="lazy" /></div>
-            <div class="pill"><img src="slots pics/mayan-magic-wildfire.jpg" alt="Slot cover" loading="lazy" /></div>
+            <div class="pill"><img src="slots pics/aztec-magic.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/wolf-gold.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/mystical-lamp.jpg" alt="Slot cover" loading="lazy" /></div>
             <div class="pill"><img src="slots pics/sugar-frenzy.jpg" alt="Slot cover" loading="lazy" /></div>
@@ -639,6 +639,8 @@
     });
 
     // Make image paths resilient for different repo layouts and prevent marquee blanks.
+    const workingSources = [];
+
     document.querySelectorAll("img").forEach((img) => {
       const original = img.getAttribute("src") || "";
       const fileName = original.split("/").pop() || "";
@@ -652,10 +654,35 @@
       ].filter((v, i, arr) => v && arr.indexOf(v) === i);
 
       let index = 0;
+
+      img.addEventListener("load", () => {
+        if (img.naturalWidth > 0 && !workingSources.includes(img.currentSrc || img.src)) {
+          workingSources.push(img.currentSrc || img.src);
+        }
+      });
+
       img.addEventListener("error", () => {
         index += 1;
         if (index < candidates.length) {
           img.src = candidates[index];
+          return;
+        }
+
+        // Final fallback: reuse any already loaded image source to avoid empty cards.
+        if (workingSources.length) {
+          const fallback = workingSources[Math.floor(Math.random() * workingSources.length)];
+          if (fallback) {
+            img.src = fallback;
+            return;
+          }
+        }
+
+        // Last resort: hide broken marquee pill completely.
+        const pill = img.closest(".pill");
+        if (pill) {
+          pill.style.display = "none";
+        } else {
+          img.style.display = "none";
         }
       });
 
