@@ -638,8 +638,25 @@
       el.href = TRACKING_URL;
     });
 
-    // Make image paths resilient for different repo layouts and prevent marquee blanks.
-    const workingSources = [];
+    // Make image paths resilient and keep marquee always filled.
+    const stableFallbackNames = [
+      "fortune-frog.jpg",
+      "rainbow-gold.jpg",
+      "joker-reelz.jpg",
+      "arabian-dream.jpg",
+      "the-myth.jpg",
+      "temple-of-nudges.jpg",
+      "wolf-gold.jpg",
+      "mystical-lamp.jpg",
+      "starburst.jpg",
+      "aztec-magic.jpg"
+    ];
+    const stableFallbackPaths = stableFallbackNames.flatMap((name) => [
+      "slots pics/" + name,
+      "slotpics/" + name,
+      name
+    ]);
+    const loadedSources = [];
 
     document.querySelectorAll("img").forEach((img) => {
       const original = img.getAttribute("src") || "";
@@ -650,45 +667,53 @@
         original.replace(/^slotpics\//, ""),
         fileName,
         "slots pics/" + fileName,
-        "slotpics/" + fileName
+        "slotpics/" + fileName,
+        ...stableFallbackPaths
       ].filter((v, i, arr) => v && arr.indexOf(v) === i);
 
       let index = 0;
+      let guard = 0;
 
       img.addEventListener("load", () => {
-        if (img.naturalWidth > 0 && !workingSources.includes(img.currentSrc || img.src)) {
-          workingSources.push(img.currentSrc || img.src);
+        if (img.naturalWidth > 0) {
+          const src = img.currentSrc || img.src;
+          if (src && !loadedSources.includes(src)) {
+            loadedSources.push(src);
+          }
         }
       });
 
       img.addEventListener("error", () => {
+        guard += 1;
         index += 1;
-        if (index < candidates.length) {
+
+        if (index < candidates.length && guard < 60) {
           img.src = candidates[index];
           return;
         }
 
-        // Final fallback: reuse any already loaded image source to avoid empty cards.
-        if (workingSources.length) {
-          const fallback = workingSources[Math.floor(Math.random() * workingSources.length)];
-          if (fallback) {
-            img.src = fallback;
-            return;
-          }
+        // Guaranteed non-empty tile fallback for marquee/cards.
+        if (loadedSources.length) {
+          img.src = loadedSources[Math.floor(Math.random() * loadedSources.length)];
+          return;
         }
 
-        // Last resort: hide broken marquee pill completely.
-        const pill = img.closest(".pill");
-        if (pill) {
-          pill.style.display = "none";
-        } else {
-          img.style.display = "none";
-        }
+        // Absolute last fallback: tiny inline image to avoid broken icon.
+        img.src =
+          "data:image/svg+xml;utf8," +
+          encodeURIComponent(
+            "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='240'>" +
+              "<defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#331a6b'/><stop offset='1' stop-color='#161235'/></linearGradient></defs>" +
+              "<rect width='100%' height='100%' fill='url(#g)'/>" +
+              "<text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' fill='#d9d3ff' font-family='Arial' font-size='26'>SLOT</text>" +
+            "</svg>"
+          );
       });
 
       // Moving lines should not lazy-load while they are animating.
       if (img.closest(".marquee")) {
         img.loading = "eager";
+        img.decoding = "sync";
       }
     });
   </script>
